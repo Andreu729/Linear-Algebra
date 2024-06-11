@@ -19,12 +19,9 @@ def col_len(list_):  # length calculator used for cols
         return standard_len
 
 
-a = [[2, 3, 4], [4, 5, 6]]
-print(list_len(a))
-
-
 class Matrix:
 
     def __init__(self, matrix):  # constructor of matrix
         self.matrix = matrix
         self.row_amount = list_len(matrix)
+        self.col_amount = col_len(matrix)
