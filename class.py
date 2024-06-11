@@ -6,24 +6,17 @@ def list_len(list_):  # length of list
     return i
 
 
-def false_finder(value):
-    if not value:
-        print("Matrix error, not all rows are equal length")
-        return True
-    else:
-        return False
-
-
-false_finder([True, True, True, True])
-
-def row_len(list_):  # length calculator used for rows
-    all_lengths = []  # stores information of all row's lengths
-    standard_len = list_len(list_[0])  # row length that every row should have
+def col_len(list_):  # length calculator used for cols
+    all_lengths = []  # stores information of all col's lengths
+    standard_len = list_len(list_[0])  # length that every col should have
     for row in list_:
-        equals = (list_len(row) == standard_len)
+        equals = (list_len(row) == standard_len)  # True if r_n has same cols as r_1
         all_lengths.append(equals)
-    for b in all_lengths:
-        t =
+    if False in all_lengths:  # doesn't return the col length if list has some False data
+        print("Matrix doesn't have the same dimension of columns")
+        return False
+    else:
+        return standard_len
 
 
 a = [[2, 3, 4], [4, 5, 6]]
