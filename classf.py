@@ -33,6 +33,45 @@ def max_finder(matrix, n, v=0):
         return max_  # return max_ when the highest length was found.
 
 
+def str_adder(list_, string):
+    new_list = []
+    for value in list_:
+        value = value + string
+        new_list.append(value)
+    return new_list
+
+
+def adder_looper(value, string, times):
+    for a in range(times):
+        value += string
+    return value
+
+
+def control_add(value, string, happens=True):
+    if not happens:
+        return value
+    else:
+        return value + string
+
+
+def visual_constructor(matrix, n):
+    start = ""
+    constructed = []
+    final = False
+    if n == 1:
+        start = "[ "
+    elif n == matrix.col_amount:
+        final = True
+    k = max_finder(matrix.matrix, n)
+    for row in matrix.matrix:
+        m = len(str(row[n - 1]))
+        value = adder_looper(start, " ", k - m)
+        visual = value + str(row[n - 1])
+        visual = control_add(visual, "]", final)
+        constructed.append(visual)
+    return constructed
+
+
 class Matrix:
 
     def __init__(self, matrix):  # constructor of matrix
