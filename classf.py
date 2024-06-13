@@ -33,7 +33,7 @@ def max_finder(matrix, n, v=0):
         return max_  # return max_ when the highest length was found.
 
 
-def str_adder(list_, string):
+def str_adder(list_, string):  # adds a string to every data of list
     new_list = []
     for value in list_:
         value = value + string
@@ -41,58 +41,58 @@ def str_adder(list_, string):
     return new_list
 
 
-def adder_looper(value, string, times):
+def adder_looper(value, string, times):  # adds a string x times
     for a in range(times):
         value += string
     return value
 
 
-def control_add(value, string, happens=True):
+def control_add(value, string, happens=True):  # only adds string if happens=True
     if not happens:
         return value
     else:
         return value + string
 
 
-def visual_constructor(matrix, n):
+def visual_constructor(matrix, n):  # Creates the matrix_form of n-th column
     start = ""
-    constructed = []
+    constructed = []  # list that will have matrix form as a string for each row and n-th column
     final = False
     if n == 1:
         start = "[ "
     elif n == matrix.col_amount:
-        final = True
+        final = True  # if True, then " ]" is added (for final column of matrix)
     k = max_finder(matrix.matrix, n)
     for row in matrix.matrix:
         m = len(str(row[n - 1]))
-        value = adder_looper(start, " ", k - m + 1)
-        visual = value + str(row[n - 1])
-        visual = control_add(visual, " ]", final)
-        constructed.append(visual)
+        value = adder_looper(start, " ", k - m + 1)  # adds space the needed amount for good_looking
+        visual = value + str(row[n - 1])  # spaces needed + component as a string
+        visual = control_add(visual, " ]", final)  # only adds " ]" in last column
+        constructed.append(visual)  # adds every visual to constructed list
     return constructed
 
 
-def list_union(list1, list2):
+def list_union(list1, list2):  # unites two different lists
     l1 = list_len(list1)
     l2 = list_len(list2)
     union_list = []
     if not l1 == l2:
         return union_list
     for n in range(l1):
-        string = list1[n] + list2[n]
+        string = list1[n] + list2[n]  # union between n-th component of both lists.
         union_list.append(string)
     return union_list
 
 
-def visual_final(matrix):
-    print_list = visual_constructor(matrix, 1)
-    for n in range(2, matrix.col_amount + 1):
-        construction = visual_constructor(matrix, n)
-        print_list = list_union(print_list, construction)
+def visual_final(matrix):  # last step, union of every constructed column that makes the whole matrix_form
+    print_list = visual_constructor(matrix, 1)  # list with first column
+    for n in range(2, matrix.col_amount + 1):  # loops from 2-nd to last column
+        construction = visual_constructor(matrix, n)  # visual of n-th column
+        print_list = list_union(print_list, construction)  # adding n-th column to the return list.
     return print_list
 
 
-def list_print(list_):
+def list_print(list_):  # prints every value of a list in different rows
     for value in list_:
         print(value)
 
@@ -105,6 +105,6 @@ class Matrix:
         self.col_amount = col_len(matrix)
         self.matrix_form = visual_final(self)
 
-    def mprint(self):
+    def mprint(self):  # prints every row of matrix_form, making the whole visual
         matrix_list = self.matrix_form
         list_print(matrix_list)
