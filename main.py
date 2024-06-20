@@ -1,12 +1,9 @@
 from func import *
 
-imatrix = Matrix([[0, 1, 5, 5], [1, 1, 3, -3], [1, 0, 1670, -47]])
-imatrix.mprint()
+print("matriz original")
+matrix = Matrix([[1, 2, 3, 4, 5], [5, -4, 3, 2, 0], [0, 0, 3, 2, 1], [0, 2, -2, 1, -1]])
+matrix.mprint()
 print("=====================")
-
-n_matrix = row_operation(imatrix, changed_row=2, scalar=1, changer_row=1)
-
-n_matrix.mprint()
-print("=====================")
-r_matrix = single_row_reduce(n_matrix, col=1, last_pivot_row=2)
+print("matriz reducida")
+r_matrix = row_reduce(matrix)
 r_matrix.mprint()

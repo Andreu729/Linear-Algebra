@@ -75,3 +75,12 @@ def single_row_reduce(matrix, *, col, last_pivot_row):  # reduces one single col
             component_value = matrix_list[row][col - 1]
             matrix = row_operation(matrix, changed_row=row + 1, scalar=-component_value, changer_row=actual_pivot_pos)
     return matrix
+
+
+def row_reduce(matrix):  # returns matrix into it's reduced form
+    pivot_row = 0
+    for col in range(1, matrix.col_amount + 1):
+        matrix = single_row_reduce(matrix, col=col, last_pivot_row=pivot_row)
+        if not pivot_find(matrix, col=col, last_pivot_row=pivot_row) == 0:
+            pivot_row = pivot_find(matrix, col=col, last_pivot_row=pivot_row)
+    return matrix
