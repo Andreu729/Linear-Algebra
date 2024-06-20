@@ -104,7 +104,15 @@ class Matrix:
         self.row_amount = list_len(matrix)
         self.col_amount = col_len(matrix)
         self.matrix_form = visual_final(self)
+        self.float_deleter()
 
     def mprint(self):  # prints every row of matrix_form, making the whole visual
         matrix_list = self.matrix_form
         list_print(matrix_list)
+
+    def float_deleter(self):  # converts float -> int in case that float = n.0
+        for row in range(self.row_amount):
+            for col in range(self.col_amount):
+                component_value = self.matrix[row][col]
+                if not str(component_value).isdigit() and component_value - int(component_value) == 0:
+                    self.matrix[row][col] = int(component_value)
