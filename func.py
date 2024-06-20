@@ -62,12 +62,16 @@ def pivot_find(matrix, *, col, last_pivot_row):  # searches for a pivot value in
 def single_row_reduce(matrix, *, col, last_pivot_row):  # reduces one single column of matrix and returns it.
     matrix_list = matrix.matrix
     actual_pivot_pos = pivot_find(matrix, col=col, last_pivot_row=last_pivot_row)
-    if not actual_pivot_pos == 0:
-        pivot_value = matrix_list[actual_pivot_pos - 1][col - 1]
-        matrix = row_amplification(matrix, row=actual_pivot_pos, scalar=1 / pivot_value)  # changes pivot to 1
-    else:
+    if actual_pivot_pos == 0:
         return matrix
-    for row in range(1, matrix.row_amount):
-        component_value = matrix_list[row][col - 1]
-        matrix = row_operation(matrix, changed_row=row + 1, scalar=-component_value, changer_row=actual_pivot_pos)
+    elif not actual_pivot_pos - last_pivot_row == 1:
+        matrix = row_permutation(matrix, last_pivot_row + 1, actual_pivot_pos)
+        actual_pivot_pos = last_pivot_row + 1
+
+    pivot_value = matrix_list[actual_pivot_pos - 1][col - 1]
+    matrix = row_amplification(matrix, row=actual_pivot_pos, scalar=1 / pivot_value)  # changes pivot to 1
+    for row in range(matrix.row_amount):
+        if not row == actual_pivot_pos - 1:
+            component_value = matrix_list[row][col - 1]
+            matrix = row_operation(matrix, changed_row=row + 1, scalar=-component_value, changer_row=actual_pivot_pos)
     return matrix
