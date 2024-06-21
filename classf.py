@@ -59,7 +59,7 @@ def visual_constructor(matrix, n):  # Creates the matrix_form of n-th column
     constructed = []  # list that will have matrix form as a string for each row and n-th column
     final = False
     if n == 1:
-        start = "[ "
+        start = "["
     elif n == matrix.col_amount:
         final = True  # if True, then " ]" is added (for final column of matrix)
     k = max_finder(matrix.matrix, n)
@@ -103,8 +103,9 @@ class Matrix:
         self.matrix = matrix
         self.row_amount = list_len(matrix)
         self.col_amount = col_len(matrix)
-        self.matrix_form = visual_final(self)
+        self.precision = 3
         self.float_deleter()
+        self.matrix_form = visual_final(self)
 
     def mprint(self):  # prints every row of matrix_form, making the whole visual
         matrix_list = self.matrix_form
@@ -113,6 +114,13 @@ class Matrix:
     def float_deleter(self):  # converts float -> int in case that float = n.0
         for row in range(self.row_amount):
             for col in range(self.col_amount):
-                component_value = self.matrix[row][col]
-                if not str(component_value).isdigit() and component_value - int(component_value) == 0:
+                component_value = round(self.matrix[row][col], self.precision)
+                if isinstance(component_value, float) and abs((component_value - int(component_value))) <= 10**(-self.precision):
                     self.matrix[row][col] = int(component_value)
+                else:
+                    self.matrix[row][col] = component_value
+
+    def set_precision(self, new_precision):  # changes the precision of approximating component floats.
+        self.precision = new_precision
+        self.float_deleter()
+        self.matrix_form = visual_final(self)
