@@ -97,15 +97,26 @@ def list_print(list_):  # prints every value of a list in different rows
         print(value)
 
 
+def transpose(matrix):  # returns transpose of matrix
+    matrix_list = matrix.matrix
+    matrix_transpose = []
+    for col in range(matrix.col_amount):
+        matrix_transpose_col = []
+        for row in range(matrix.row_amount):
+            matrix_transpose_col.append(matrix_list[row][col])
+        matrix_transpose.append(matrix_transpose_col)
+    return Matrix(matrix_transpose)
+
+
 class Matrix:
 
     def __init__(self, matrix):  # constructor of matrix
-        self.matrix = matrix
-        self.row_amount = list_len(matrix)
+        self.matrix = matrix  # a list
+        self.row_amount = list_len(matrix)  # ints
         self.col_amount = col_len(matrix)
         self.precision = 3
         self.float_deleter()
-        self.matrix_form = visual_final(self)
+        self.matrix_form = visual_final(self)  # a list of lists
 
     def mprint(self):  # prints every row of matrix_form, making the whole visual
         matrix_list = self.matrix_form
