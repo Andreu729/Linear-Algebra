@@ -73,18 +73,25 @@ def single_row_reduce(matrix, *, col, last_pivot_row):  # reduces one single col
     return matrix
 
 
-def row_reduce(matrix):  # returns matrix into it's reduced form
+def row_reduce(matrix, *, set_option=0):  # returns matrix into it's reduced form
+    #  options: 0 = returns matrix in reduced form, 1 = return total pivot amount, 2 = return free column positions
     pivot_row = 0
+    pivot_amount = 0
+    no_pivot_cols = []
     for col in range(1, matrix.col_amount + 1):
         matrix = single_row_reduce(matrix, col=col, last_pivot_row=pivot_row)
         if not pivot_find(matrix, col=col, last_pivot_row=pivot_row) == 0:
             pivot_row = pivot_find(matrix, col=col, last_pivot_row=pivot_row)
-    return matrix
+            pivot_amount += 1
+        else:
+            no_pivot_cols.append(col)
+    if set_option == 1:
+        return pivot_amount
+    elif set_option == 2:
+        return no_pivot_cols
+    else:
+        return matrix
 
 
 def linear_solve(matrix, b):  # solves the matrix equation Ax = b and returns x as a list.
-    extended_matrix = column_extend(matrix, b)
-    matrix = row_reduce(matrix)
-    extended_matrix = row_reduce(extended_matrix)
-    for row in range(matrix.row_amount):
-        pass
+    pass
