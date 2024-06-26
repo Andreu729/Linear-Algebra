@@ -93,5 +93,34 @@ def row_reduce(matrix, *, set_option=0):  # returns matrix into it's reduced for
         return matrix
 
 
+def null_space(matrix):  # finds the nullspace of matrix
+    if row_reduce(matrix, set_option=1) == matrix.col_amount:
+        null_vector = []
+        for zero in range(matrix.col_amount):
+            null_vector.append(0)
+        return null_vector
+    free_col_list = row_reduce(matrix, set_option=2)
+    reduced_matrix_t = transpose(row_reduce(matrix))
+    reduced_matrix_list = reduced_matrix_t.matrix
+    null_space_list = []
+    for col_number in range(1, matrix.col_amount + 1):
+        if col_number in free_col_list:
+            vector_generator = []
+            free_col_amount = 0
+            inverse_free_col = row_amplification(reduced_matrix_t, row=col_number, scalar=-1).matrix[col_number - 1]
+            for other_free_cols_searcher in range(1, matrix.col_amount + 1):
+                if other_free_cols_searcher == col_number:
+                    vector_generator.append(1)
+                    free_col_amount += 1
+                elif other_free_cols_searcher in free_col_list:
+                    vector_generator.append(0)
+                    free_col_amount += 1
+                else:
+                    last_pivot = other_free_cols_searcher - free_col_amount
+                    vector_generator.append(inverse_free_col[last_pivot - 1])
+            null_space_list.append("gen" + str(vector_generator))
+    return null_space_list
+
+
 def linear_solve(matrix, b):  # solves the matrix equation Ax = b and returns x as a list.
     pass
