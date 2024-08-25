@@ -175,7 +175,7 @@ def linear_solve(matrix, *, b):  # solves the matrix equation Ax = b and returns
     if not augmented_matrix:
         print("Linear_Solve error detected, length of b is not equal to the amount of rows in matrix")
         return
-    print(nullspace)
+
     augmented_reduced = row_reduce(augmented_matrix, set_option=0)  # obtaining b column when rows are reduced.
 
     col_dim = matrix.col_amount
