@@ -60,7 +60,7 @@ def visual_constructor(matrix, n):  # Creates the matrix_form of n-th column
     final = False
     if n == 1:
         start = "["
-    elif n == matrix.col_amount:
+    if n == matrix.col_amount:
         final = True  # if True, then " ]" is added (for final column of matrix)
     k = max_finder(matrix.matrix, n)
     for row in matrix.matrix:
